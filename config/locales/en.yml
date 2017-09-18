@@ -1,0 +1,5 @@
+en:
+  inputs:
+    select_many:
+      available: Available
+      selected: Selected
