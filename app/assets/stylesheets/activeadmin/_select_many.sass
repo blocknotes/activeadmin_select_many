@@ -1,13 +1,28 @@
 body.active_admin
   .select_many
+    .buttons
+      margin-top: 0
+      text-align: center
+      width: 22px
+      a
+        background: #ddd
+        border: 1px solid #eee
+        display: block
+        font-weight: bold
+        line-height: 16px
+        text-decoration: none
+        &.move_up, &.move_down
+          display: none
     .search-select
       margin-bottom: 1px
     .selects
       display: flex
       flex-wrap: wrap
       > input[type="text"], > select, > span
-        margin-right: 1%
         min-width: auto
-        width: 49%
+        width: calc(50% - 12px);
       > span
         padding: 3px 6px 1px 6px
+    &.sortable .buttons
+      a.move_up, a.move_down
+        display: block

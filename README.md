@@ -30,8 +30,18 @@ Add to ActiveAdmin model config, in *form* block.
 `f.input :sections, as: :select_many`
 - Remote collection (using AJAX):
 `f.input :tags, as: :select_many, remote_collection: admin_tags_path( format: :json )`
-- Changing search param and text key:
+- Changing search param and text key (default: *name*):
 `f.input :tags, as: :select_many, remote_collection: admin_tags_path( format: :json ), search_param: 'category_contains', text_key: 'category', placeholder: 'Type something...'`
+
+Example to enable JSON response on an ActiveAdmin model:
+
+```rb
+ActiveAdmin.register Tag do
+  config.per_page = 30
+  config.sort_order = 'name_asc'
+  index download_links: [:json]
+end
+```
 
 ## Options
 
@@ -39,6 +49,7 @@ Add to ActiveAdmin model config, in *form* block.
 - **placeholder**: placeholder string for search box
 - **remote_collection**: JSON path
 - **search_param**: parameter to use as search key (ransack style)
+- **size**: number of rows of both the selects (default 4)
 - **text_key**: key to use as text for select options
 
 ## Do you like it? Star it!
