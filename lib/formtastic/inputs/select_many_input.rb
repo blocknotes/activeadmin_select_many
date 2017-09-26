@@ -1,23 +1,20 @@
 module Formtastic
   module Inputs
     class SelectManyInput < SelectInput
-      # def input_html_options
-      #   super.merge( class: 'select-many' )
-      # end
-
       def to_html
-        opts = { class: 'selects' }
-        opts[:sortable] = options[:sortable] if options[:sortable]
+        options[:'data-remote'] = options.delete( :remote_collection )
+        opts = { class: 'select-many-inputs' }
+        opts[:sortable] = options.delete( :sortable ) if options[:sortable]
         input_wrapping do
           label_html <<
-          hidden_input <<
           template.content_tag( :div, opts ) do
-            search_box_html +
-            template.content_tag( :span, '' ) +
-            template.content_tag( :span, template.t( 'inputs.select_many.available' ), class: 'available' ) +
-            template.content_tag( :span, template.t( 'inputs.select_many.selected'  ), class: 'selected' ) +
-            select_src_html +
-            buttons_html +
+            hidden_input <<
+            search_box_html <<
+            template.content_tag( :span, '' ) <<
+            template.content_tag( :span, template.t( 'inputs.select_many.available' ), class: 'available' ) <<
+            template.content_tag( :span, template.t( 'inputs.select_many.selected'  ), class: 'selected' ) <<
+            select_src_html <<
+            buttons_html <<
             select_dst_html
           end
         end
@@ -43,12 +40,12 @@ module Formtastic
       end
 
       def search_box_html
-        @opts ||= {id: nil, class: 'search-select', placeholder: options[:placeholder], 'data-remote': options[:remote_collection], 'data-search': options[:search_param] ? options[:search_param] : 'name_contains', 'data-text': options[:text_key] ? options[:text_key] : 'name', 'data-value': options[:value_key] ? options[:value_key] : 'id'}
+        @opts ||= {id: nil, class: 'search-select', placeholder: options.delete( :placeholder ), 'data-remote': options[:'data-remote'], 'data-search': options[:search_param] ? options[:search_param] : 'name_contains', 'data-text': options[:text_key] ? options[:text_key] : 'name', 'data-value': options[:value_key] ? options[:value_key] : 'id'}
         template.text_field_tag( nil, '', @opts )
       end
 
       def select_src_html
-        coll = if options[:remote_collection]
+        coll = if options[:'data-remote']
           []
         else
           # TODO: add option unique ?
