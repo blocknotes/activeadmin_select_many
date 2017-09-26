@@ -8,6 +8,7 @@ Features:
 - select on the right with selected items
 - local/remote collections
 - double click to add/remove items
+- sortable
 
 ![screenshot](screenshot.png)
 
@@ -32,6 +33,21 @@ Add to ActiveAdmin model config, in *form* block.
 `f.input :tags, as: :select_many, remote_collection: admin_tags_path( format: :json )`
 - Changing search param and text key (default: *name*):
 `f.input :tags, as: :select_many, remote_collection: admin_tags_path( format: :json ), search_param: 'category_contains', text_key: 'category', placeholder: 'Type something...'`
+- Sortable (items position must be saved manually):
+`f.input :tags, as: :select_many, remote_collection: admin_tags_path( format: :json ), sortable: true`
+```rb
+  # Manually update position field
+  after_save :on_after_save
+  controller do
+    def on_after_save( object )
+      if params[:article][:section_ids]
+        order = {}
+        params[:article][:section_ids].each_with_index { |id, i| order[id.to_i] = i }
+        object.sections.each { |item| item.update_column( :position, order[item.id].to_i ) }
+      end
+    end
+  end
+```
 
 Example to enable JSON response on an ActiveAdmin model:
 
@@ -49,7 +65,8 @@ end
 - **placeholder**: placeholder string for search box
 - **remote_collection**: JSON path
 - **search_param**: parameter to use as search key (ransack style)
-- **size**: number of rows of both the selects (default 4)
+- **sortable**: set to true to enable sortable buttons (default: not set)
+- **size**: number of rows of both the selects (default: 4)
 - **text_key**: key to use as text for select options
 
 ## Do you like it? Star it!

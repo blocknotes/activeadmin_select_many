@@ -6,10 +6,12 @@ module Formtastic
       # end
 
       def to_html
+        opts = { class: 'selects' }
+        opts[:sortable] = options[:sortable] if options[:sortable]
         input_wrapping do
           label_html <<
           hidden_input <<
-          template.content_tag( :div, class: 'selects' ) do
+          template.content_tag( :div, opts ) do
             search_box_html +
             template.content_tag( :span, '' ) +
             template.content_tag( :span, template.t( 'inputs.select_many.available' ), class: 'available' ) +

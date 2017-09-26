@@ -70,7 +70,7 @@ $(document).ready( function() {
   $('.select_many.input .search-select').each( function() {
     $(this).on( 'keyup', $(this).data( 'remote' ) ? onRemoteSelect : onLocalSelect );
   });
-  $('.select_many.sortable .move_up').on( 'click', function() {
+  $('.select_many [sortable] .move_up').on( 'click', function() {
     var select = $(this).parent().next();
     var current = select.find( 'option:selected' )[0];
     if( current ) {
@@ -78,7 +78,7 @@ $(document).ready( function() {
       smUpdateValues( $(this).closest( '.select_many' ) );
     }
   });
-  $('.select_many.sortable .move_down').on( 'click', function() {
+  $('.select_many [sortable] .move_down').on( 'click', function() {
     var select = $(this).parent().next();
     var current = select.find( 'option:selected' )[0];
     if( current ) {
