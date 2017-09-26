@@ -4,13 +4,15 @@ An Active Admin plugin which improves one-to-many and many-to-many associations 
 
 Features:
 - search box
-- select on the left with available items
-- select on the right with selected items
+- available items on the left, selected items on the right
 - local/remote collections
 - double click to add/remove items
-- sortable
+- sortable (with up/down buttons)
+- no dependecies other than jQuery
 
 ![screenshot](screenshot.png)
+
+*(inspired by RailsAdmin associations selector)*
 
 ## Install
 
@@ -35,8 +37,10 @@ Add to ActiveAdmin model config, in *form* block.
 `f.input :tags, as: :select_many, remote_collection: admin_tags_path( format: :json ), search_param: 'category_contains', text_key: 'category', placeholder: 'Type something...'`
 - Sortable (items position must be saved manually):
 `f.input :tags, as: :select_many, remote_collection: admin_tags_path( format: :json ), sortable: true`
+
+Example to update *position* field:
+
 ```rb
-  # Manually update position field
   after_save :on_after_save
   controller do
     def on_after_save( object )
@@ -53,7 +57,7 @@ Example to enable JSON response on an ActiveAdmin model:
 
 ```rb
 ActiveAdmin.register Tag do
-  config.per_page = 30
+  config.per_page = 30  # to limit served items
   config.sort_order = 'name_asc'
   index download_links: [:json]
 end

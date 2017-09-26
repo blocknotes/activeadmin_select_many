@@ -1,3 +1,14 @@
+function smActivate( target ) {
+  if( target.tagName.toLowerCase() == 'option' ) {
+    var parent = $(this).closest( '.select_many' );
+    var opt = $(target);
+    var dst = parent.find( $(this).data( 'select' ) == 'src' ? '[data-select="dst"]' : '[data-select="src"]' );
+    dst.append( $('<option>', { value: opt.val(), text: opt.text() }) );
+    opt.remove();
+    smUpdateValues( parent );
+  }
+}
+
 function smDebounce( func, wait, immediate ) {
   var timeout;
   return function() {
@@ -14,23 +25,18 @@ function smDebounce( func, wait, immediate ) {
 };
 
 function smUpdateValues( parent ) {
-  var values = parent.find( '.values' );
+  var cnt = 0, values = parent.find( '.values' );
   values.empty();
   parent.find( '[data-select="dst"] option' ).each( function() {
     values.append( $('<input>', { type: 'hidden', name: values.data( 'name' ), value: $(this).val() }) );
+    cnt++;
   });
+  if( cnt == 0 ) values.append( $('<input>', { type: 'hidden', name: values.data( 'name' ) }) );
 }
 
 $(document).ready( function() {
   $('.select_many.input select').on( 'dblclick', function( event ) {
-    if( event.target.tagName.toLowerCase() == 'option' ) {
-      var parent = $(this).closest( '.select_many' );
-      var opt = $(event.target);
-      var dst = parent.find( $(this).data( 'select' ) == 'src' ? '[data-select="dst"]' : '[data-select="src"]' );
-      dst.append( $('<option>', { value: opt.val(), text: opt.text() }) );
-      opt.remove();
-      smUpdateValues( parent );
-    }
+    $.proxy( smActivate, $(this) )( event.target );
   });
 
   var onLocalSelect = smDebounce( function() {
@@ -69,6 +75,16 @@ $(document).ready( function() {
 
   $('.select_many.input .search-select').each( function() {
     $(this).on( 'keyup', $(this).data( 'remote' ) ? onRemoteSelect : onLocalSelect );
+  });
+  $('.select_many .add').on( 'click', function() {
+    var select = $(this).parent().prev();
+    var current = select.find( 'option:selected' )[0];
+    if( current ) $.proxy( smActivate, select )( current );
+  });
+  $('.select_many .remove').on( 'click', function() {
+    var select = $(this).parent().next();
+    var current = select.find( 'option:selected' )[0];
+    if( current ) $.proxy( smActivate, select )( current );
   });
   $('.select_many [sortable] .move_up').on( 'click', function() {
     var select = $(this).parent().next();

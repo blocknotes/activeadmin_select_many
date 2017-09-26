@@ -5,14 +5,17 @@ body.active_admin
       text-align: center
       width: 22px
       a
-        background: #ddd
+        background: #d4d4d4
         border: 1px solid #eee
+        border-radius: 4px
         display: block
         font-weight: bold
         line-height: 16px
         text-decoration: none
         &.move_up, &.move_down
           display: none
+        &:hover
+          background: #e0e0e0
     .search-select
       margin-bottom: 1px
     .selects
@@ -23,7 +26,10 @@ body.active_admin
         width: calc(50% - 12px);
       > span
         padding: 3px 6px 1px 6px
+      .available
+        font-style: italic
       .selected
+        font-style: italic
         padding-left: 30px
     [sortable] >.buttons
       a.move_up, a.move_down

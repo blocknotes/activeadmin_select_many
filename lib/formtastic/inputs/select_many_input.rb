@@ -35,8 +35,8 @@ module Formtastic
 
       def buttons_html
         template.content_tag( :div, class: 'buttons' ) do
-          # template.link_to( '&rarr;'.html_safe, 'Javascript:void(0)', class: 'add' ) +
-          # template.link_to( '&larr;'.html_safe, 'Javascript:void(0)', class: 'remove' ) +
+          template.link_to( '&rarr;'.html_safe, 'Javascript:void(0)', class: 'add' ) +
+          template.link_to( '&larr;'.html_safe, 'Javascript:void(0)', class: 'remove' ) +
           template.link_to( '&uarr;'.html_safe, 'Javascript:void(0)', class: 'move_up' ) +
           template.link_to( '&darr;'.html_safe, 'Javascript:void(0)', class: 'move_down' )
         end
