@@ -1,14 +1,20 @@
 # ActiveAdmin Select Many [![Gem Version](https://badge.fury.io/rb/activeadmin_select_many.svg)](https://badge.fury.io/rb/activeadmin_select_many)
 
-An Active Admin plugin which improves one-to-many and many-to-many associations selection (jQuery required).
+An Active Admin plugin which improves one-to-many / many-to-many / many-to-one associations selection using 2 new inputs: **select_many** and **select_one** (jQuery required)
 
-Features:
+Features for *select_many*:
 - search box
 - available items on the left, selected items on the right
 - local/remote collections
 - double click to add/remove items
 - sortable (with up/down buttons)
-- no dependecies other than jQuery
+
+Features for *select_one*:
+- search box
+- selected items on the right
+- remote collections
+- counter of items found
+- can be used as filter
 
 ![screenshot](screenshot.png)
 
@@ -28,6 +34,7 @@ Features:
 ## Options
 
 - **collection**: local collection
+- **filter_form**: for *select_one* only, allow to use it as filter
 - **placeholder**: placeholder string for search box
 - **remote_collection**: JSON path
 - **search_param**: parameter to use as search key (ransack format)
@@ -35,7 +42,7 @@ Features:
 - **size**: number of rows of both the selects (default: 4)
 - **text_key**: key to use as text for select options
 
-## Examples
+## Example with select_many
 
 Add to ActiveAdmin model config, in *form* block.
 
@@ -72,6 +79,16 @@ ActiveAdmin.register Tag do
   index download_links: [:json]
 end
 ```
+
+## Example with select_one
+
+In a form:
+
+`f.input :article, as: :select_one, placeholder: 'Search...', remote_collection: admin_articles_path( format: :json ), search_param: 'title_contains', text_key: 'title'`
+
+As filter:
+
+`filter :article_id_eq, as: :select_one, filter_form: true, placeholder: 'Search...', search_param: 'title_contains', text_key: 'title', remote_collection: '/admin/articles.json'`
 
 ## Do you like it? Star it!
 

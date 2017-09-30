@@ -111,7 +111,6 @@ $(document).ready( function() {
       var search_key = $(this).data('search') ? $(this).data('search') : 'name_contains';
       var value_key = $(this).data('value') ? $(this).data('value') : 'id';
       var text_key = $(this).data('text') ? $(this).data('text') : 'name';
-      var msg = $(this).data( 'msg' );
       data['q['+search_key+']'] = $(this).val();
       $.ajax({
         context: select,
@@ -126,7 +125,7 @@ $(document).ready( function() {
           data.forEach( function( item ) {
             sel.append( $('<option>', { value: item[value_key], text: item[text_key] }) );
           });
-          if( msg ) sel.parent().find( '.status' ).html( msg + data.length );
+          sel.parent().find( '.status' ).text( '[' + data.length + ']' );
         },
       });
     }

@@ -16,30 +16,39 @@ body.active_admin
           display: none
         &:hover
           background: #e0e0e0
-    .search-select
-      margin-bottom: 1px
     .select-many-inputs
       display: flex
       flex-wrap: wrap
       > input[type="text"], > select, > span
         min-width: auto
-        width: calc(50% - 12px);
+        width: calc(50% - 12px)
       > span
         padding: 3px 6px 1px 6px
+      .empty
+        width: 20%
       .available
         font-style: italic
+        padding: 0 6px 0 6px
       .selected
         font-style: italic
-        padding-left: 30px
+        padding: 0 0 0 12px
+    .search-select
+      margin-bottom: 1px
+      width: 50%
     [sortable] >.buttons
       a.move_up, a.move_down
         display: block
-  .select_one
+
+  .formtastic > .inputs .select_one
     .select-one-inputs
       display: flex
-      flex-wrap: wrap
       > input[type="text"], > select, > span
-        min-width: auto
-        width: calc(50% - 12px);
-      > span
-        padding: 3px 6px 1px 6px
+        display: inline-block
+        width: calc(50% - 12px)
+      .status
+        line-height: 26px
+        margin-left: 5px
+
+  .filter_form .select-one-inputs
+    .status
+      display: none

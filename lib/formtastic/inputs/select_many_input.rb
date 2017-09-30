@@ -10,7 +10,7 @@ module Formtastic
           template.content_tag( :div, opts ) do
             hidden_input <<
             search_box_html <<
-            template.content_tag( :span, '' ) <<
+            template.content_tag( :span, '', class: 'empty'  ) <<
             template.content_tag( :span, template.t( 'inputs.select_many.available' ), class: 'available' ) <<
             template.content_tag( :span, template.t( 'inputs.select_many.selected'  ), class: 'selected' ) <<
             select_src_html <<
