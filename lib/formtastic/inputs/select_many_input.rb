@@ -2,7 +2,7 @@ module Formtastic
   module Inputs
     class SelectManyInput < SelectInput
       def to_html
-        options[:'data-remote'] = options.delete( :remote_collection )
+        options[:'data-remote-collection'] = options.delete( :remote_collection )
         opts = { class: 'select-many-inputs' }
         opts[:sortable] = options.delete( :sortable ) if options[:sortable]
         input_wrapping do
@@ -40,12 +40,12 @@ module Formtastic
       end
 
       def search_box_html
-        @opts ||= {id: nil, class: 'search-select', placeholder: options.delete( :placeholder ), 'data-remote': options[:'data-remote'], 'data-search': options[:search_param] ? options[:search_param] : 'name_contains', 'data-text': options[:text_key] ? options[:text_key] : 'name', 'data-value': options[:value_key] ? options[:value_key] : 'id'}
+        @opts ||= {id: nil, class: 'search-select', placeholder: options.delete( :placeholder ), 'data-remote-collection': options[:'data-remote-collection'], 'data-search': options[:search_param] ? options[:search_param] : 'name_contains', 'data-text': options[:text_key] ? options[:text_key] : 'name', 'data-value': options[:value_key] ? options[:value_key] : 'id'}
         template.text_field_tag( nil, '', @opts )
       end
 
       def select_src_html
-        coll = if options[:'data-remote']
+        coll = if options[:'data-remote-collection']
           []
         else
           # TODO: add option unique ?

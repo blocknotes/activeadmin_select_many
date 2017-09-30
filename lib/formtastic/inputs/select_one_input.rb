@@ -9,12 +9,16 @@ module Formtastic
       #   super.merge( class: 'select-one' )
       # end
 
-
       def to_html
+        opts = { class: 'select-one-inputs' }
         input_wrapping do
           label_html <<
-          search_box <<
-          select_html
+          template.content_tag( :div, opts ) do
+            search_box <<
+            select_html <<
+            template.content_tag( :span, '' ) <<
+            template.content_tag( :span, template.t( 'inputs.select_one.status' ), class: 'status' )
+          end
         end
       end
 
@@ -29,7 +33,7 @@ module Formtastic
       # end
 
       def search_box
-        @opts ||= {id: nil, class: 'search-select', placeholder: options[:placeholder], 'data-remote': options[:remote_collection], 'data-search': options[:search_param] ? options[:search_param] : 'name_contains', 'data-text': options[:text_key] ? options[:text_key] : 'name', 'data-value': options[:value_key] ? options[:value_key] : 'id'}
+        @opts ||= {id: nil, class: 'search-select', placeholder: options[:placeholder], 'data-remote-collection': options[:remote_collection], 'data-search': options[:search_param] ? options[:search_param] : 'name_contains', 'data-text': options[:text_key] ? options[:text_key] : 'name', 'data-value': options[:value_key] ? options[:value_key] : 'id', 'data-msg': options[:msg_items]}
         template.text_field_tag( nil, '', @opts )
       end
 

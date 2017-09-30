@@ -25,6 +25,16 @@ Features:
 `//= require activeadmin/select_many`
 - Use the input with `as: :select_many` in Active Admin model conf
 
+## Options
+
+- **collection**: local collection
+- **placeholder**: placeholder string for search box
+- **remote_collection**: JSON path
+- **search_param**: parameter to use as search key (ransack format)
+- **sortable**: set to true to enable sortable buttons (default: not set)
+- **size**: number of rows of both the selects (default: 4)
+- **text_key**: key to use as text for select options
+
 ## Examples
 
 Add to ActiveAdmin model config, in *form* block.
@@ -63,19 +73,11 @@ ActiveAdmin.register Tag do
 end
 ```
 
-## Options
-
-- **collection**: local collection
-- **placeholder**: placeholder string for search box
-- **remote_collection**: JSON path
-- **search_param**: parameter to use as search key (ransack style)
-- **sortable**: set to true to enable sortable buttons (default: not set)
-- **size**: number of rows of both the selects (default: 4)
-- **text_key**: key to use as text for select options
-
 ## Do you like it? Star it!
 
 If you use this component just star it. A developer is more motivated to improve a project when there is some interest.
+
+Take a look at [other ActiveAdmin components](https://github.com/blocknotes?utf8=✓&tab=repositories&q=activeadmin&type=source) that I made if you are curious.
 
 ## Contributors
 

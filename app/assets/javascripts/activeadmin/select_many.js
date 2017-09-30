@@ -57,7 +57,7 @@ $(document).ready( function() {
       $.ajax({
         context: _this,
         data: data,
-        url: $(this).data( 'remote' ),
+        url: $(this).data( 'remote-collection' ),
         complete: function( req, status ) {
           $(this).data( 'searching', '' );
         },
@@ -74,7 +74,7 @@ $(document).ready( function() {
   }, 400 );
 
   $('.select_many.input .search-select').each( function() {
-    $(this).on( 'keyup', $(this).data( 'remote' ) ? onRemoteSelect : onLocalSelect );
+    $(this).on( 'keyup', $(this).data( 'remote-collection' ) ? onRemoteSelect : onLocalSelect );
   });
   $('.select_many .add').on( 'click', function() {
     var select = $(this).parent().prev();
@@ -103,32 +103,33 @@ $(document).ready( function() {
     }
   });
 
-  // // WORK IN PROGRESS
-  // var onRemoteSelectOne = smDebounce( function( event ) {
-  //   if( $(this).data( 'searching' ) != '1' ) {
-  //     $(this).data( 'searching', '1' );
-  //     var _this = $(this);
-  //     var data = {}
-  //     var search_key = $(this).data('search') ? $(this).data('search') : 'name_contains';
-  //     var value_key = $(this).data('value') ? $(this).data('value') : 'id';
-  //     var text_key = $(this).data('text') ? $(this).data('text') : 'name';
-  //     data['q['+search_key+']'] = event.key;
-  //     $.ajax({
-  //       context: _this,
-  //       data: data,
-  //       url: $(this).data( 'remote' ),
-  //       complete: function( req, status ) {
-  //         $(this).data( 'searching', '' );
-  //       },
-  //       success: function( data, status, req ) {
-  //         var select = $(this);
-  //         select.empty();
-  //         data.forEach( function( item ) {
-  //           select.append( $('<option>', { value: item[value_key], text: item[text_key] }) );
-  //         });
-  //       },
-  //     });
-  //   }
-  // }, 400 );
-  // $('.select_one.input select').on( 'keyup', onRemoteSelectOne );
+  var onRemoteSelectOne = smDebounce( function( event ) {
+    var select = $(this).next();
+    if( select.data( 'searching' ) != '1' ) {
+      select.data( 'searching', '1' );
+      var data = {}
+      var search_key = $(this).data('search') ? $(this).data('search') : 'name_contains';
+      var value_key = $(this).data('value') ? $(this).data('value') : 'id';
+      var text_key = $(this).data('text') ? $(this).data('text') : 'name';
+      var msg = $(this).data( 'msg' );
+      data['q['+search_key+']'] = $(this).val();
+      $.ajax({
+        context: select,
+        data: data,
+        url: $(this).data( 'remote-collection' ),
+        complete: function( req, status ) {
+          $(this).data( 'searching', '' );
+        },
+        success: function( data, status, req ) {
+          var sel = $(this);
+          sel.empty();
+          data.forEach( function( item ) {
+            sel.append( $('<option>', { value: item[value_key], text: item[text_key] }) );
+          });
+          if( msg ) sel.parent().find( '.status' ).html( msg + data.length );
+        },
+      });
+    }
+  }, 500 );
+  $('.select-one-inputs > .search-select').on( 'keyup', onRemoteSelectOne );
 });

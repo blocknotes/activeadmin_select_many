@@ -34,3 +34,12 @@ body.active_admin
     [sortable] >.buttons
       a.move_up, a.move_down
         display: block
+  .select_one
+    .select-one-inputs
+      display: flex
+      flex-wrap: wrap
+      > input[type="text"], > select, > span
+        min-width: auto
+        width: calc(50% - 12px);
+      > span
+        padding: 3px 6px 1px 6px
