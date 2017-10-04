@@ -34,13 +34,14 @@ Features for *select_one*:
 ## Options
 
 - **collection**: local collection
+- **counter_limit**: if results count is greater than or equal to this limit a '+' is shown
 - **filter_form**: for *select_one* only, allow to use it as filter
+- **member_label**: key to use as text for select options
 - **placeholder**: placeholder string for search box
 - **remote_collection**: JSON path
 - **search_param**: parameter to use as search key (ransack format)
-- **sortable**: set to true to enable sortable buttons (default: not set)
 - **size**: number of rows of both the selects (default: 4)
-- **text_key**: key to use as text for select options
+- **sortable**: set to true to enable sortable buttons (default: not set)
 
 ## Example with select_many
 
@@ -51,7 +52,7 @@ Add to ActiveAdmin model config, in *form* block.
 - Remote collection (using AJAX):
 `f.input :tags, as: :select_many, remote_collection: admin_tags_path( format: :json )`
 - Changing search param and text key (default: *name*):
-`f.input :tags, as: :select_many, remote_collection: admin_tags_path( format: :json ), search_param: 'category_contains', text_key: 'category', placeholder: 'Type something...'`
+`f.input :tags, as: :select_many, remote_collection: admin_tags_path( format: :json ), search_param: 'category_contains', member_label: 'category', placeholder: 'Type something...'`
 - Sortable (items position must be saved manually):
 `f.input :tags, as: :select_many, remote_collection: admin_tags_path( format: :json ), sortable: true`
 
@@ -84,11 +85,11 @@ end
 
 In a form:
 
-`f.input :article, as: :select_one, placeholder: 'Search...', remote_collection: admin_articles_path( format: :json ), search_param: 'title_contains', text_key: 'title'`
+`f.input :article, as: :select_one, placeholder: 'Search...', remote_collection: admin_articles_path( format: :json ), search_param: 'title_contains', member_label: 'title'`
 
 As filter:
 
-`filter :article_id_eq, as: :select_one, filter_form: true, placeholder: 'Search...', search_param: 'title_contains', text_key: 'title', remote_collection: '/admin/articles.json'`
+`filter :article_id_eq, as: :select_one, filter_form: true, placeholder: 'Search...', search_param: 'title_contains', member_label: 'title', remote_collection: '/admin/articles.json'`
 
 ## Do you like it? Star it!
 
