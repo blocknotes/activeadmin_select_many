@@ -58,7 +58,7 @@ module Formtastic
       end
 
       def select_dst_html
-        selected = object.send( input_name )
+        selected = options[:selected] ? options[:selected] : object.send( input_name )
         selected = [selected] if selected.is_a? Fixnum
         coll = selected ? collection.select { |option| selected.include?( option[1] ) } : collection
         opts = input_options.merge( name: nil, id: nil, multiple: true, 'data-select': 'dst', size: options[:size] ? options[:size] : 4 )

@@ -32,7 +32,7 @@ module Formtastic
       end
 
       def select_html
-        selected = object.send( input_name )
+        selected = options[:selected] ? options[:selected] : object.send( input_name )
         sel = ''
         collection.each do |item|
           if item[1] == selected

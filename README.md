@@ -40,6 +40,7 @@ Features for *select_one*:
 - **placeholder**: placeholder string for search box
 - **remote_collection**: JSON path
 - **search_param**: parameter to use as search key (ransack format)
+- **selected**: force value selection (array for *select_many*, single value for *select_one*)
 - **size**: number of rows of both the selects (default: 4)
 - **sortable**: set to true to enable sortable buttons (default: not set)
 
