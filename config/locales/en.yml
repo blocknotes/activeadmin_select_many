@@ -3,5 +3,3 @@ en:
     select_many:
       available: Available
       selected: Selected
-    select_one:
-      status: ''

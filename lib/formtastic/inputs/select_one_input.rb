@@ -19,8 +19,7 @@ module Formtastic
           template.content_tag( :div, opts ) do
             search_box <<
             select_html <<
-            # template.content_tag( :span, '' ) <<
-            template.content_tag( :span, template.t( 'inputs.select_one.status' ), class: 'status' )
+            template.content_tag( :span, '' )
           end
         end
       end
