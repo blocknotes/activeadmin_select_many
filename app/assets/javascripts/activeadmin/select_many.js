@@ -32,6 +32,7 @@ function smUpdateValues( parent ) {
     cnt++;
   });
   if( cnt == 0 ) values.append( $('<input>', { type: 'hidden', name: values.data( 'name' ) }) );
+  parent.find( '.selected span' ).text( ' [' + cnt + ']' );
 }
 
 $(document).ready( function() {
@@ -40,10 +41,13 @@ $(document).ready( function() {
   });
 
   var onLocalSelect = smDebounce( function() {
-    var search = $(this).val().toLowerCase();
+    var cnt = 0, search = $(this).val().toLowerCase();
     $(this).closest( '.select_many' ).find( '[data-select="src"] option' ).each( function() {
-      $(this).toggle( $(this).text().toLowerCase().indexOf( search ) >= 0 );
+      var found = $(this).text().toLowerCase().indexOf( search ) >= 0;
+      $(this).toggle( found );
+      if( found ) cnt++;
     });
+    $(this).parent().find( '.available span' ).text( ' [' + cnt + ']' );
   }, 250 );
   var onRemoteSelect = smDebounce( function() {
     var search = $(this).val().trim();
@@ -53,6 +57,7 @@ $(document).ready( function() {
       var data = {}
       var text_key = $(this).data('text');
       var value_key = $(this).data('value');
+      var counter_limit = $(this).data('counter-limit') ? Number( $(this).data('counter-limit') ) : 0;
       data['q['+$(this).data('search')+']'] = search;
       $.ajax({
         context: _this,
@@ -62,18 +67,21 @@ $(document).ready( function() {
           $(this).data( 'searching', '' );
         },
         success: function( data, status, req ) {
-          // TODO: limit... 100 ?
           var select = $(this).closest( '.select_many' ).find( '[data-select="src"]' );
           select.empty();
           data.forEach( function( item ) {
             select.append( $('<option>', { value: item[value_key], text: item[text_key] }) );
           });
+          $(this).parent().find( '.available span' ).text( ' [' + ( ( counter_limit > 0 && data.length >= counter_limit ) ? ( counter_limit + '+' ) : data.length ) + ']' );
         },
       });
     }
   }, 400 );
 
   $('.select_many.input .search-select').each( function() {
+    var parent = $(this).parent();
+    parent.find( '.available' ).append( '<span> [' + parent.find( '[data-select="src"] option' ).length + ']</span>' );
+    parent.find( '.selected' ).append( '<span> [' + parent.find( '[data-select="dst"] option' ).length + ']</span>' );
     $(this).on( 'keyup', $(this).data( 'remote-collection' ) ? onRemoteSelect : onLocalSelect );
   });
   $('.select_many .add').on( 'click', function() {
@@ -126,7 +134,7 @@ $(document).ready( function() {
           data.forEach( function( item ) {
             sel.append( $('<option>', { value: item[value_key], text: item[text_key] }) );
           });
-          sel.parent().find( '.status' ).text( '[' + data.length + ( counter_limit > 0 && data.length >= counter_limit ? '+' : '' ) + ']' );
+          sel.parent().find( '.status' ).text( '[' + ( ( counter_limit > 0 && data.length >= counter_limit ) ? ( counter_limit + '+' ) : data.length ) + ']' );
         },
       });
     }

@@ -40,7 +40,7 @@ module Formtastic
       end
 
       def search_box_html
-        @opts ||= {id: nil, class: 'search-select', placeholder: options.delete( :placeholder ), 'data-remote-collection': options[:'data-remote-collection'], 'data-search': options[:search_param] ? options[:search_param] : 'name_contains', 'data-text': options[:member_label] ? options[:member_label] : ( options[:text_key] ? options[:text_key] : 'name' ), 'data-value': options[:value_key] ? options[:value_key] : 'id'}
+        @opts ||= {id: nil, class: 'search-select', placeholder: options.delete( :placeholder ), 'data-remote-collection': options[:'data-remote-collection'], 'data-search': options[:search_param] ? options[:search_param] : 'name_contains', 'data-text': options[:member_label] ? options[:member_label] : ( options[:text_key] ? options[:text_key] : 'name' ), 'data-value': options[:value_key] ? options[:value_key] : 'id', 'data-counter-limit': options[:counter_limit].to_i}
         template.text_field_tag( nil, '', @opts )
       end
 

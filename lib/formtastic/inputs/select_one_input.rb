@@ -26,7 +26,7 @@ module Formtastic
 
       def search_box
         # TODO: remove text_key in next major version
-        @opts ||= {id: nil, class: 'search-select', placeholder: options[:placeholder], 'data-remote-collection': options[:remote_collection], 'data-search': options[:search_param] ? options[:search_param] : 'name_contains', 'data-text': options[:member_label] ? options[:member_label] : ( options[:text_key] ? options[:text_key] : 'name' ), 'data-value': options[:value_key] ? options[:value_key] : 'id', 'data-msg': options[:msg_items], 'data-counter-limit': options[:counter_limit].to_i }
+        @opts ||= {id: nil, class: 'search-select', placeholder: options[:placeholder], 'data-remote-collection': options[:remote_collection], 'data-search': options[:search_param] ? options[:search_param] : 'name_contains', 'data-text': options[:member_label] ? options[:member_label] : ( options[:text_key] ? options[:text_key] : 'name' ), 'data-value': options[:value_key] ? options[:value_key] : 'id', 'data-msg': options[:msg_items], 'data-counter-limit': options[:counter_limit].to_i}
         template.text_field_tag( nil, '', @opts )
       end
 
