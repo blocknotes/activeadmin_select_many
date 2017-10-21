@@ -40,6 +40,7 @@ $(document).ready( function() {
     $.proxy( smActivate, $(this) )( event.target );
   });
 
+  // --- select_many ----------------------------------------------------------
   var onLocalSelect = smDebounce( function() {
     var cnt = 0, search = $(this).val().toLowerCase();
     $(this).closest( '.select_many' ).find( '[data-select="src"] option' ).each( function() {
@@ -49,10 +50,12 @@ $(document).ready( function() {
     });
     $(this).parent().find( '.available span' ).text( ' [' + cnt + ']' );
   }, 250 );
-  var onRemoteSelect = smDebounce( function() {
+
+  var onRemoteSelect = smDebounce( function( event ) {
     var search = $(this).val().trim();
-    if( search != '' && $(this).data( 'searching' ) != '1' ) {
+    if( $(this).data( 'searching' ) != '1' && search && $(this).data( 'last-search' ) != search ) {
       $(this).data( 'searching', '1' );
+      $(this).data( 'last-search', search );
       var _this = $(this);
       var data = {}
       var text_key = $(this).data('text');
@@ -82,8 +85,54 @@ $(document).ready( function() {
     var parent = $(this).parent();
     parent.find( '.available' ).append( '<span> [' + parent.find( '[data-select="src"] option' ).length + ']</span>' );
     parent.find( '.selected' ).append( '<span> [' + parent.find( '[data-select="dst"] option' ).length + ']</span>' );
-    $(this).on( 'keyup', $(this).data( 'remote-collection' ) ? onRemoteSelect : onLocalSelect );
+    $(this).on( 'keydown', function( event ) {
+      if( event.which == 13 || event.which == 40 ) {  // enter or arrow down
+        event.preventDefault();
+        $(this).closest( '.select_many' ).find( '[data-select="src"]' ).focus();
+      }
+      else $.proxy( $(this).data( 'remote-collection' ) ? onRemoteSelect : onLocalSelect, $(this) )( event );
+    });
+
+    // --- key bindings -------------------------------------------------------
+    parent.find( '[data-select="src"]' ).on( 'keydown', function( event ) {
+      if( event.which == 13 ) {  // enter
+        event.preventDefault();
+        var opts = $(this).find( ':selected' );
+        if( opts.length > 0 ) {
+          var next = $( opts[0] ).next();
+          $.proxy( smActivate, $(this) )( opts[0] );
+          if( next.length > 0 ) $(this).val( next.val() );
+        }
+      }
+      else if( event.which == 9 || event.which == 39 ) {  // tab or right arrow
+        event.preventDefault();
+        parent.find( '[data-select="dst"]' ).focus();
+      }
+      else if( event.which == 38 ) {  // up arrow
+        if( $(this).find('option')[0] == $(this).find(':selected')[0] ) {
+          event.preventDefault();
+          parent.find( '.search-select' ).focus();
+        }
+      }
+    });
+    parent.find( '[data-select="dst"]' ).on( 'keydown', function( event ) {
+      if( event.which == 13 ) {  // enter
+        event.preventDefault();
+        var opts = $(this).find( ':selected' );
+        if( opts.length > 0 ) {
+          var next = $( opts[0] ).next();
+          $.proxy( smActivate, $(this) )( opts[0] );
+          if( next.length > 0 ) $(this).val( next.val() );
+        }
+      }
+      else if( event.which == 37 ) {  // left arrow
+        event.preventDefault();
+        parent.find( '[data-select="src"]' ).focus();
+      }
+    });
   });
+
+  // --- buttons --------------------------------------------------------------
   $('.select_many .add').on( 'click', function() {
     var select = $(this).parent().prev();
     var current = select.find( 'option:selected' )[0];
@@ -111,16 +160,19 @@ $(document).ready( function() {
     }
   });
 
+  // --- select one -----------------------------------------------------------
   var onRemoteSelectOne = smDebounce( function( event ) {
+    var search = $(this).val().trim();
     var select = $(this).next();
-    if( select.data( 'searching' ) != '1' ) {
+    if( select.data( 'searching' ) != '1' && search && select.data( 'last-search' ) != search ) {
       select.data( 'searching', '1' );
+      select.data( 'last-search', search );
       var data = {}
       var search_key = $(this).data('search') ? $(this).data('search') : 'name_contains';
       var value_key = $(this).data('value') ? $(this).data('value') : 'id';
       var text_key = $(this).data('text') ? $(this).data('text') : 'name';
       var counter_limit = $(this).data('counter-limit') ? Number( $(this).data('counter-limit') ) : 0;
-      data['q['+search_key+']'] = $(this).val();
+      data['q['+search_key+']'] = search;
       $.ajax({
         context: select,
         data: data,
@@ -139,5 +191,28 @@ $(document).ready( function() {
       });
     }
   }, 500 );
-  $('.select-one-inputs > .search-select').on( 'keyup', onRemoteSelectOne );
+
+  $('.select-one-inputs').each( function() {
+    $(this).find( '.search-select' ).on( 'keydown', function( event ) {
+      if( event.which == 38 ) {  // up arrow
+        event.preventDefault();
+        var select = $(this).closest( '.select-one-inputs' ).find( '[data-select="src"]' );
+        var prev = select.find( ':selected' ).prev();
+        if( prev.length ) select.val( prev.val() );
+      }
+      else if( event.which == 40 ) {  // down arrow
+        event.preventDefault();
+        var select = $(this).closest( '.select-one-inputs' ).find( '[data-select="src"]' );
+        var next = select.find( ':selected' ).next();
+        if( next.length ) select.val( next.val() );
+      }
+      else $.proxy( onRemoteSelectOne, $(this) )( event );
+    });
+    $(this).find( '[data-select="src"]' ).on( 'keydown', function( event ) {
+      if( event.which == 37 ) {  // left arrow
+        event.preventDefault();
+        $(this).closest( '.select-one-inputs' ).find( '.search-select' ).focus();
+      }
+    });
+  });
 });

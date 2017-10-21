@@ -8,6 +8,7 @@ Features for *select_many*:
 - local/remote collections
 - double click to add/remove items
 - sortable (with up/down buttons)
+- key bindings to improve accessibility
 
 Features for *select_one*:
 - search box
@@ -15,6 +16,7 @@ Features for *select_one*:
 - remote collections
 - counter of items found
 - can be used as filter
+- key bindings to improve accessibility
 
 ![screenshot](screenshot.png)
 

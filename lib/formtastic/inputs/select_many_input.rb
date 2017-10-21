@@ -10,9 +10,9 @@ module Formtastic
           template.content_tag( :div, opts ) do
             hidden_input <<
             search_box_html <<
-            template.content_tag( :span, '', class: 'empty'  ) <<
+            template.content_tag( :span, '', class: 'empty' ) <<
             template.content_tag( :span, template.t( 'inputs.select_many.available' ), class: 'available' ) <<
-            template.content_tag( :span, template.t( 'inputs.select_many.selected'  ), class: 'selected' ) <<
+            template.content_tag( :span, template.t( 'inputs.select_many.selected' ), class: 'selected' ) <<
             select_src_html <<
             buttons_html <<
             select_dst_html
@@ -40,8 +40,17 @@ module Formtastic
       end
 
       def search_box_html
-        @opts ||= {id: nil, class: 'search-select', placeholder: options.delete( :placeholder ), 'data-remote-collection': options[:'data-remote-collection'], 'data-search': options[:search_param] ? options[:search_param] : 'name_contains', 'data-text': options[:member_label] ? options[:member_label] : ( options[:text_key] ? options[:text_key] : 'name' ), 'data-value': options[:value_key] ? options[:value_key] : 'id', 'data-counter-limit': options[:counter_limit].to_i}
-        template.text_field_tag( nil, '', @opts )
+        opts = {
+          id: nil,
+          class: 'search-select',
+          placeholder: options.delete( :placeholder ),
+          'data-counter-limit': options[:counter_limit].to_i,
+          'data-remote-collection': options[:'data-remote-collection'],
+          'data-search': options[:search_param] ? options[:search_param] : 'name_contains',
+          'data-text': options[:member_label] ? options[:member_label] : ( options[:text_key] ? options[:text_key] : 'name' ),
+          'data-value': options[:value_key] ? options[:value_key] : 'id',
+        }
+        template.text_field_tag( nil, '', opts )
       end
 
       def select_src_html
