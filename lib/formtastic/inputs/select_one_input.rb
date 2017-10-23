@@ -1,9 +1,9 @@
 module Formtastic
   module Inputs
     class SelectOneInput < SelectInput
-      def input_options
-        super.merge include_blank: false
-      end
+      # def input_options
+      #   super.merge include_blank: false
+      # end
 
       def input_wrapping(&block)
         template.content_tag(options[:filter_form] ? :div : :li,
@@ -49,7 +49,9 @@ module Formtastic
             break
           end
         end
-        builder.select(input_name, sel, input_options, input_html_options.merge( 'data-select': 'src' ) )
+        opts = input_html_options.merge( 'data-select': 'src' )
+        opts['data-include-blank'] = '1' if input_options[:include_blank]
+        builder.select(input_name, sel, input_options, opts )
       end
     end
   end

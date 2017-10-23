@@ -181,12 +181,15 @@ $(document).ready( function() {
           $(this).data( 'searching', '' );
         },
         success: function( data, status, req ) {
-          var sel = $(this);
+          var first = false, sel = $(this);
           sel.empty();
+          if( sel.data('include-blank') ) sel.append( $('<option>', { value: '', text: '' }) );
           data.forEach( function( item ) {
             sel.append( $('<option>', { value: item[value_key], text: item[text_key] }) );
+            if( !first ) first = item[value_key];
           });
           sel.parent().find( '.status' ).text( '[' + ( ( counter_limit > 0 && data.length >= counter_limit ) ? ( counter_limit + '+' ) : data.length ) + ']' );
+          if( first ) sel.val( first );
         },
       });
     }

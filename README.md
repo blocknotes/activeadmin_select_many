@@ -38,6 +38,7 @@ Features for *select_one*:
 - **collection**: local collection
 - **counter_limit**: if results count is greater than or equal to this limit a '+' is shown
 - **filter_form**: for *select_one* only, allow to use it as filter
+- **include_blank**: for *select_one* only, default true, allow to include a blank value on top
 - **member_label**: key to use as text for select options
 - **placeholder**: placeholder string for search box
 - **remote_collection**: JSON path
