@@ -163,7 +163,7 @@ $(document).ready( function() {
   // --- select one -----------------------------------------------------------
   var onRemoteSelectOne = smDebounce( function( event ) {
     var search = $(this).val().trim();
-    var select = $(this).next();
+    var select = $(this).closest( '.select_one' ).find( '[data-select="src"]' );;
     if( select.data( 'searching' ) != '1' && search && select.data( 'last-search' ) != search ) {
       select.data( 'searching', '1' );
       select.data( 'last-search', search );

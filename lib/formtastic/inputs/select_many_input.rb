@@ -11,8 +11,8 @@ module Formtastic
             hidden_input <<
             search_box_html <<
             template.content_tag( :span, '', class: 'empty' ) <<
-            template.content_tag( :span, template.t( 'inputs.select_many.available' ), class: 'available' ) <<
-            template.content_tag( :span, template.t( 'inputs.select_many.selected' ), class: 'selected' ) <<
+            template.content_tag( :span, ::I18n.t( 'inputs.select_many.available' ), class: 'available' ) <<
+            template.content_tag( :span, ::I18n.t( 'inputs.select_many.selected' ), class: 'selected' ) <<
             select_src_html <<
             buttons_html <<
             select_dst_html
