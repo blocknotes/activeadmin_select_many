@@ -23,7 +23,7 @@ module Formtastic
       def hidden_input
         template.content_tag( :div, class: 'values', 'data-name': input_html_options[:name] ) do
           values = object.send( input_name )
-          values = [values] if values.is_a? Fixnum
+          values = [values] if values.is_a? Integer
           values.each do |value|
             template.concat template.hidden_field_tag( input_html_options[:name], value, {id: nil} )
           end if values
@@ -59,7 +59,7 @@ module Formtastic
         else
           # TODO: add option unique ?
           selected = object.send( input_name )
-          selected = [selected] if selected.is_a? Fixnum
+          selected = [selected] if selected.is_a? Integer
           selected ? collection.select { |option| !selected.include?( option[1] ) } : collection
         end
         opts = input_options.merge( name: nil, id: nil, multiple: true, 'data-select': 'src', size: options[:size] ? options[:size] : 4 )
@@ -68,7 +68,7 @@ module Formtastic
 
       def select_dst_html
         selected = options[:selected] ? options[:selected] : object.send( input_name )
-        selected = [selected] if selected.is_a? Fixnum
+        selected = [selected] if selected.is_a? Integer
         coll = selected ? collection.select { |option| selected.include?( option[1] ) } : collection
         opts = input_options.merge( name: nil, id: nil, multiple: true, 'data-select': 'dst', size: options[:size] ? options[:size] : 4 )
         template.select_tag nil, template.options_for_select( coll ), opts
