@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Formtastic
   module Inputs
     class SelectOneInput < SelectInput
@@ -16,10 +18,10 @@ module Formtastic
         opts = { class: 'select-one-inputs' }
         input_wrapping do
           label_html <<
-          template.content_tag( :div, opts ) do
+          template.content_tag(:div, opts) do
             search_box <<
             select_html <<
-            template.content_tag( :span, '', class: 'status' )
+            template.content_tag(:span, '', class: 'status')
           end
         end
       end
@@ -33,25 +35,18 @@ module Formtastic
           'data-counter-limit': options[:counter_limit].to_i,
           'data-msg': options[:msg_items],
           'data-remote-collection': options[:remote_collection],
-          'data-search': options[:search_param] ? options[:search_param] : 'name_contains',
-          'data-text': options[:member_label] ? options[:member_label] : ( options[:text_key] ? options[:text_key] : 'name' ),
-          'data-value': options[:value_key] ? options[:value_key] : 'id',
+          'data-search': options[:search_param] || 'name_contains',
+          'data-text': options[:member_label] || options[:text_key] || 'name',
+          'data-value': options[:value_key] || 'id'
         }
-        template.text_field_tag( nil, '', opts )
+        template.text_field_tag(nil, '', opts)
       end
 
       def select_html
-        selected = options[:selected] ? options[:selected] : object.send( input_name )
-        sel = ''
-        collection.each do |item|
-          if item[1] == selected
-            sel = template.options_for_select( [item], selected ) if item[1] == selected
-            break
-          end
-        end
-        opts = input_html_options.merge( 'data-select': 'src' )
+        selected = options[:selected] || object.send(input_name)
+        opts = input_html_options.merge('data-select': 'src')
         opts['data-include-blank'] = '1' if input_options[:include_blank]
-        builder.select(input_name, sel, input_options, opts )
+        template.select_tag input_name, template.options_for_select(collection, selected), input_options.merge(opts)
       end
     end
   end
