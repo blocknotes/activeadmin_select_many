@@ -1,4 +1,4 @@
-# ActiveAdmin Select Many [![Gem Version](https://badge.fury.io/rb/activeadmin_select_many.svg)](https://badge.fury.io/rb/activeadmin_select_many)
+# ActiveAdmin Select Many [![Gem Version](https://badge.fury.io/rb/activeadmin_select_many.svg)](https://badge.fury.io/rb/activeadmin_select_many) [![CircleCI](https://circleci.com/gh/blocknotes/activeadmin_select_many.svg?style=svg)](https://circleci.com/gh/blocknotes/activeadmin_select_many)
 
 An Active Admin plugin which improves one-to-many / many-to-many / many-to-one associations selection using 2 new inputs: **select_many** and **select_one** (jQuery required).
 
@@ -107,7 +107,7 @@ Take a look at [other ActiveAdmin components](https://github.com/blocknotes?utf8
 
 ## Contributors
 
-- [Mattia Roccoberton](http://blocknot.es) - creator, maintainer
+- [Mattia Roccoberton](http://blocknot.es): author
 
 ## License
 
