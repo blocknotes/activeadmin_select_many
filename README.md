@@ -1,22 +1,22 @@
 # ActiveAdmin Select Many [![Gem Version](https://badge.fury.io/rb/activeadmin_select_many.svg)](https://badge.fury.io/rb/activeadmin_select_many)
 
-An Active Admin plugin which improves one-to-many / many-to-many / many-to-one associations selection using 2 new inputs: **select_many** and **select_one** (jQuery required)
+An Active Admin plugin which improves one-to-many / many-to-many / many-to-one associations selection using 2 new inputs: **select_many** and **select_one** (jQuery required).
 
 Features for *select_many*:
-- search box
-- available items on the left, selected items on the right
-- local/remote collections
-- double click to add/remove items
-- sortable (with up/down buttons)
-- key bindings to improve accessibility
+- search box;
+- available items on the left, selected items on the right;
+- local/remote collections;
+- double click to add/remove items;
+- sortable (with up/down buttons);
+- key bindings to improve accessibility.
 
 Features for *select_one*:
-- search box
-- selected items on the right
-- remote collections
-- counter of items found
-- can be used as filter
-- key bindings to improve accessibility
+- search box;
+- selected items on the right;
+- remote collections;
+- counter of items found;
+- can be used as filter;
+- key bindings to improve accessibility.
 
 ![screenshot](screenshot.png)
 
@@ -47,7 +47,7 @@ Features for *select_one*:
 - **size**: number of rows of both the selects (default: 4)
 - **sortable**: set to true to enable sortable buttons (default: not set)
 
-## Example with select_many
+## Examples with select_many
 
 Add to ActiveAdmin model config, in *form* block.
 
@@ -85,7 +85,7 @@ ActiveAdmin.register Tag do
 end
 ```
 
-## Example with select_one
+## Examples with select_one
 
 In a form:
 
@@ -94,6 +94,10 @@ In a form:
 As filter:
 
 `filter :article_id_eq, as: :select_one, filter_form: true, placeholder: 'Search...', search_param: 'title_contains', member_label: 'title', remote_collection: '/admin/articles.json'`
+
+## Notes
+
+- To use this plugins with ActiveAdmin 1.x please use the version 0.3.4
 
 ## Do you like it? Star it!
 
