@@ -210,7 +210,7 @@ $(document).ready(function() {
         var next = select.find(':selected').next();
         if(next.length) select.val(next.val());
       }
-      else $.proxy(onRemoteSelectOne, $(this))(event);
+      else if($(this).data('remote-collection')) $.proxy(onRemoteSelectOne, $(this))(event);
     });
     $(this).find('[data-select="src"]').on('keydown', function(event) {
       if(event.which == 37) {  // left arrow
