@@ -1,8 +1,9 @@
-# ActiveAdmin Select Many [![Gem Version](https://badge.fury.io/rb/activeadmin_select_many.svg)](https://badge.fury.io/rb/activeadmin_select_many) [![CircleCI](https://circleci.com/gh/blocknotes/activeadmin_select_many.svg?style=svg)](https://circleci.com/gh/blocknotes/activeadmin_select_many)
+# ActiveAdmin Select Many [![Gem Version](https://badge.fury.io/rb/activeadmin_select_many.svg)](https://badge.fury.io/rb/activeadmin_select_many) [![Specs](https://github.com/blocknotes/activeadmin_select_many/actions/workflows/specs.yml/badge.svg)](https://github.com/blocknotes/activeadmin_select_many/actions/workflows/specs.yml)
 
 An Active Admin plugin which improves one-to-many / many-to-many / many-to-one associations selection using 2 new inputs: **select_many** and **select_one** (jQuery required).
 
 Features for *select_many*:
+
 - search box;
 - available items on the left, selected items on the right;
 - local/remote collections;
@@ -11,6 +12,7 @@ Features for *select_many*:
 - key bindings to improve accessibility.
 
 Features for *select_one*:
+
 - search box;
 - selected items on the right;
 - remote collections;
@@ -101,9 +103,9 @@ As filter:
 
 ## Do you like it? Star it!
 
-If you use this component just star it. A developer is more motivated to improve a project when there is some interest.
+If you use this component just star it. A developer is more motivated to improve a project when there is some interest. My other [Active Admin components](https://github.com/blocknotes?utf8=✓&tab=repositories&q=activeadmin&type=source).
 
-Take a look at [other ActiveAdmin components](https://github.com/blocknotes?utf8=✓&tab=repositories&q=activeadmin&type=source) that I made if you are curious.
+Or consider offering me a coffee, it's a small thing but it is greatly appreciated: [about me](https://www.blocknot.es/about-me).
 
 ## Contributors
 
