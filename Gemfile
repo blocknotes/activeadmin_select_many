@@ -13,5 +13,14 @@ group :development, :test do
   gem 'sprockets-rails', '~> 3.2'
   gem 'sqlite3', '~> 1.4.2'
 
+  # Linters
+  gem 'fasterer'
+  gem 'rubocop'
+  gem 'rubocop-packaging'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
+
+  # Tools
   gem 'pry-rails'
 end
