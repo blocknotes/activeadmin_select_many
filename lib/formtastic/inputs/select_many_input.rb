@@ -73,7 +73,7 @@ module Formtastic
           size: options[:size] || 4,
           'data-select': 'src'
         }
-        template.select_tag nil, template.options_for_select(coll), input_options.merge(opts)
+        template.select_tag "#{input_name}_src", template.options_for_select(coll), input_options.merge(opts)
       end
 
       def select_dst_html
@@ -88,7 +88,7 @@ module Formtastic
           size: options[:size] || 4,
           'data-select': 'dst'
         }
-        template.select_tag nil, template.options_for_select(coll), input_options.merge(opts)
+        template.select_tag "#{input_name}_dst", template.options_for_select(coll), input_options.merge(opts)
       end
     end
   end
