@@ -1,4 +1,7 @@
-# ActiveAdmin Select Many [![Gem Version](https://badge.fury.io/rb/activeadmin_select_many.svg)](https://badge.fury.io/rb/activeadmin_select_many) [![Specs](https://github.com/blocknotes/activeadmin_select_many/actions/workflows/specs.yml/badge.svg)](https://github.com/blocknotes/activeadmin_select_many/actions/workflows/specs.yml)
+# ActiveAdmin Select Many
+[![gem version](https://badge.fury.io/rb/activeadmin_select_many.svg)](https://badge.fury.io/rb/activeadmin_select_many)
+[![gem downloads](https://badgen.net/rubygems/dt/activeadmin_select_many)](https://rubygems.org/gems/activeadmin_select_many)
+[![specs](https://github.com/blocknotes/activeadmin_select_many/actions/workflows/specs.yml/badge.svg)](https://github.com/blocknotes/activeadmin_select_many/actions/workflows/specs.yml)
 
 An Active Admin plugin which improves one-to-many / many-to-many / many-to-one associations selection using 2 new inputs: **select_many** and **select_one** (jQuery required).
 
